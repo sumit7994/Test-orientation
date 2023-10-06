@@ -334,7 +334,7 @@ function loadAd() {
       let perDegreeMove = $("#characterImge").width() / limit;
       let position = Math.round(event.gamma);
       console.log(position);
-      let style = "translateX(" + characterImge * perDegreeMove + "px)";
+      let style = "translateX(" + position * perDegreeMove + "px)";
       inner.style.transform = style;
     },
     true
