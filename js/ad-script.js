@@ -311,6 +311,7 @@ function loadAd() {
     height: "91%",
     transition: "all 0.2s",
     right: "0",
+    left: "auto",
   });
 
   $("#bg1").children("img").css({
@@ -354,7 +355,7 @@ function loadAd() {
         BGtotalMove
       );
       if (
-        BGtotalMove >= $("#bg1").width() + this.window.innerWidth &&
+        BGtotalMove >= 0 &&
         BGtotalMove <= $("#bg1").width() - this.window.innerWidth
       )
         BGelement.style.transform = BGstyle;
@@ -372,7 +373,7 @@ function loadAd() {
       );
       if (
         imgTotalMove >= -$("#characterImge").width() + this.window.innerWidth &&
-        imgTotalMove <= $("#characterImge").width() - this.window.innerWidth
+        imgTotalMove <= 0
       )
         imgElement.style.transform = imgStyle;
     },
