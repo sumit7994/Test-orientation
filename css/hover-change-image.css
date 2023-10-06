@@ -1,0 +1,103 @@
+.containerA{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.mainImage{
+    width: 100%;
+    height: 100%;   
+}
+#mask-container{
+    position: absolute;
+    left:0;
+    top: 0;
+    width: 100%;
+}
+.color-cubes{
+    position: absolute;
+    bottom: 140px;
+    left: 268px;
+    width: 436px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cube{
+    width: 36px;
+    height: 36px;
+    position: relative;
+    background-color: blue;   
+    cursor: pointer; 
+    -webkit-box-shadow: 0px 0px 14px 3px rgba(0,0,0,0.37);
+    -moz-box-shadow: 0px 0px 14px 3px rgba(0,0,0,0.37);
+    box-shadow: 0px 0px 14px 3px rgba(0,0,0,0.37);
+}
+.cube::after{
+    content: "";
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    opacity: 0;
+}
+.dare-to-be-nude{background-color: #cb847c}
+.power-move{background-color: #54000f}
+.audacious-mauve{background-color: #b95d76}
+.forward-magenta{background-color: #b31c6d}
+.superstar-brown{background-color: #704040}
+.purple-aura{background-color: #691769}
+.red-rules-the-world{background-color: #82182e}
+.dark-night-queen{background-color: #35042c}
+.cube span{
+    display: none;
+    position: absolute;
+    bottom: -36px;
+    font-weight: bold;
+    color: #fff;
+    width: 300px;
+    left: -132px;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 12px;
+    text-shadow: 2px 3px 4px rgba(0,0,0,1);
+}
+.cube.active::after{
+    content:"";
+    width: 34px;
+    height: 34px;
+    border-radius: 3px;
+    border: 2px solid #fff;
+    opacity: 1;
+}
+.cube.active span{
+    display: inline-block;
+}
+.hin-txt{
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 100px;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 2px 3px 4px rgba(0,0,0,1);
+}
+.clickBox{
+    display: block;
+    position: absolute;
+    width: 97px;
+    height: 60px;
+    bottom: 116px;
+    /* background-color: #ff000075; */
+}
+
+.posa{
+    left: 75px;
+}
+
+.posb{
+    left: 193px;
+}

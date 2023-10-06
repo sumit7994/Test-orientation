@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <p>Alpha : <span id="alpha"></span></p>
+      <p>Beta : <span id="beta"></span></p>
+      <p>Gamma: <span id="gamma"></span></p>
+    </div>
+    <script>
+      window.addEventListener("deviceorientation", function (event) {
+        console.log(event);
+        document.getElementById("alpha").innerText = event.alpha;
+        document.getElementById("beta").innerText = event.beta;
+        document.getElementById("gamma").innerText = event.gamma;
+      });
+    </script>
+  </body>
+</html>
