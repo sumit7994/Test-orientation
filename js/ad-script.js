@@ -308,7 +308,7 @@ function loadAd() {
   }
 
   $("#bg1").css({
-    height: "100vh",
+    height: "91%",
   });
 
   $("#bg1").children("img").css({
@@ -317,7 +317,7 @@ function loadAd() {
   });
 
   $("#characterImge").css({
-    height: "100vh",
+    height: "91%",
   });
 
   $("#characterImge").children("img").css({
@@ -325,21 +325,16 @@ function loadAd() {
     width: "auto",
   });
 
+  let limit = 45;
   window.addEventListener(
     "deviceorientation",
     function (event) {
       console.log(event.gamma, "event.gamma");
       let inner = this.document.getElementById("characterImge");
+      let perDegreeMove = $("#characterImge").width() / limit;
       let position = Math.round(event.gamma);
-      if (Math.abs(position) > limit) {
-        if (position > limit) {
-          position = limit;
-        } else {
-          position = -limit;
-        }
-      }
-      position = position / -100;
-      let style = "rotateY(" + position + "deg)";
+      console.log(position);
+      let style = "translateX(" + characterImge * perDegreeMove + "px)";
       inner.style.transform = style;
     },
     true
