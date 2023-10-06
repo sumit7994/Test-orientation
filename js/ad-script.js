@@ -328,21 +328,33 @@ function loadAd() {
     width: "auto",
   });
 
+  $("#video-4").css({
+    height: "91%",
+  });
+
+  $(".vdo-main-container").css({
+    height: "100%",
+  });
+
   let limit = 45;
   window.addEventListener(
     "deviceorientation",
     function (event) {
-      console.log(event.gamma, "event.gamma");
       let position = Math.round(event.gamma);
-      console.log(position);
-
+      console.log("position: ", position);
       // For BG Image
       let BGperDegreeMove = $("#bg1").width() / limit;
       let BGtotalMove = -position * BGperDegreeMove;
       let BGelement = this.document.getElementById("bg1");
       let BGstyle = "translateX(" + BGtotalMove + "px)";
+      console.log(
+        "BGperDegreeMove: ",
+        BGperDegreeMove,
+        "BGtotalMove: ",
+        BGtotalMove
+      );
       if (
-        BGtotalMove >= 0 &&
+        BGtotalMove >= $("#bg1").width() + this.window.innerWidth &&
         BGtotalMove <= $("#bg1").width() - this.window.innerWidth
       )
         BGelement.style.transform = BGstyle;
@@ -352,6 +364,12 @@ function loadAd() {
       let imgTotalMove = position * imgPerDegreeMove;
       let imgStyle = "translateX(" + imgTotalMove + "px)";
       let imgElement = this.document.getElementById("characterImge");
+      console.log(
+        "imgPerDegreeMove: ",
+        imgPerDegreeMove,
+        "imgTotalMove: ",
+        imgTotalMove
+      );
       if (
         imgTotalMove >= -$("#characterImge").width() + this.window.innerWidth &&
         imgTotalMove <= $("#characterImge").width() - this.window.innerWidth
