@@ -309,6 +309,8 @@ function loadAd() {
 
   $("#bg1").css({
     height: "91%",
+    transition: "all 0.2s",
+    right: "0",
   });
 
   $("#bg1").children("img").css({
@@ -318,6 +320,7 @@ function loadAd() {
 
   $("#characterImge").css({
     height: "91%",
+    transition: "all 0.2s",
   });
 
   $("#characterImge").children("img").css({
@@ -339,7 +342,7 @@ function loadAd() {
       let BGelement = this.document.getElementById("bg1");
       let BGstyle = "translateX(" + BGtotalMove + "px)";
       if (
-        BGtotalMove >= -$("#bg1").width() + this.window.innerWidth &&
+        BGtotalMove >= 0 &&
         BGtotalMove <= $("#bg1").width() - this.window.innerWidth
       )
         BGelement.style.transform = BGstyle;
