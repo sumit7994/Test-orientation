@@ -337,48 +337,165 @@ function loadAd() {
     height: "100%",
   });
 
-  let limit = 45;
-  window.addEventListener(
-    "deviceorientation",
-    function (event) {
-      let position = Math.round(event.gamma);
-      console.log("position: ", position);
-      // For BG Image
-      let BGperDegreeMove = $("#bg1").width() / limit;
-      let BGtotalMove = -position * BGperDegreeMove;
-      let BGelement = this.document.getElementById("bg1");
-      let BGstyle = "translateX(" + BGtotalMove + "px)";
-      console.log(
-        "BGperDegreeMove: ",
-        BGperDegreeMove,
-        "BGtotalMove: ",
-        BGtotalMove
-      );
-      if (
-        BGtotalMove >= 0 &&
-        BGtotalMove <= $("#bg1").width() - this.window.innerWidth
-      )
-        BGelement.style.transform = BGstyle;
+  $("img").on("dragstart", function (event) {
+    event.preventDefault();
+  });
 
-      // For Upper Image
-      let imgPerDegreeMove = $("#characterImge").width() / limit;
-      let imgTotalMove = position * imgPerDegreeMove;
-      let imgStyle = "translateX(" + imgTotalMove + "px)";
-      let imgElement = this.document.getElementById("characterImge");
-      console.log(
-        "imgPerDegreeMove: ",
-        imgPerDegreeMove,
-        "imgTotalMove: ",
-        imgTotalMove
-      );
+  function parallexEffect() {
+    let limit = 45;
+    window.addEventListener(
+      "deviceorientation",
+      function (event) {
+        let position = Math.round(event.gamma);
+        console.log("position: ", position);
+        // For BG Image
+        let BGperDegreeMove = $("#bg1").width() / limit;
+        let BGtotalMove = -position * BGperDegreeMove;
+        let BGelement = this.document.getElementById("bg1");
+        let BGstyle = "translateX(" + BGtotalMove + "px)";
+        console.log(
+          "BGperDegreeMove: ",
+          BGperDegreeMove,
+          "BGtotalMove: ",
+          BGtotalMove
+        );
+        if (
+          BGtotalMove >= 0 &&
+          BGtotalMove <= $("#bg1").width() - this.window.innerWidth
+        )
+          BGelement.style.transform = BGstyle;
+
+        // For Upper Image
+        let imgPerDegreeMove = $("#characterImge").width() / limit;
+        let imgTotalMove = position * imgPerDegreeMove;
+        let imgStyle = "translateX(" + imgTotalMove + "px)";
+        let imgElement = this.document.getElementById("characterImge");
+        console.log(
+          "imgPerDegreeMove: ",
+          imgPerDegreeMove,
+          "imgTotalMove: ",
+          imgTotalMove
+        );
+        if (
+          imgTotalMove >=
+            -$("#characterImge").width() + this.window.innerWidth &&
+          imgTotalMove <= 0
+        )
+          imgElement.style.transform = imgStyle;
+      },
+      true
+    );
+  }
+
+  var initialTouch = 0;
+  var mouseDown = false;
+
+  addEventListener("mousedown", (event) => {
+    console.log(event);
+    initialTouch = Number(event.pageX);
+    mouseDown = true;
+  });
+
+  addEventListener("mouseup", (event) => {
+    mouseDown = false;
+  });
+
+  addEventListener("mousemove", (event) => {
+    if (mouseDown) {
+      var touch = event.pageX;
+      // For BG
+      let bgElement = this.document.getElementById("bg1");
+      var bgStyle = window.getComputedStyle(bgElement);
+      var bgMatrix = new WebKitCSSMatrix(bgStyle.transform);
+      let bgTranslated = Number(bgMatrix.m41);
+
+      let newBGTranslateX = bgTranslated + (initialTouch - Number(touch));
+      let BGStyle = "translateX(" + newBGTranslateX + "px)";
+
       if (
-        imgTotalMove >= -$("#characterImge").width() + this.window.innerWidth &&
-        imgTotalMove <= 0
+        newBGTranslateX >= 0 &&
+        newBGTranslateX <= $("#bg1").width() - this.window.innerWidth
+      )
+        bgElement.style.transform = BGStyle;
+
+      // For Image
+      let imgElement = this.document.getElementById("characterImge");
+
+      var style = window.getComputedStyle(imgElement);
+      var matrix = new WebKitCSSMatrix(style.transform);
+      let translated = Number(matrix.m41);
+
+      let newTranslateX = translated - (initialTouch - Number(touch));
+
+      let imgStyle = "translateX(" + newTranslateX + "px)";
+      console.log(imgStyle);
+      if (
+        newTranslateX >=
+          -$("#characterImge").width() + this.window.innerWidth &&
+        newTranslateX <= 0
       )
         imgElement.style.transform = imgStyle;
-    },
-    true
-  );
+    }
+  });
+
+  addEventListener("touchstart", (event) => {
+    initialTouch = Number(event.touches[0].pageX);
+  });
+
+  addEventListener("touchmove", (event) => {
+    console.log(event);
+    var touch = event.touches[0];
+    // For BG
+    let bgElement = this.document.getElementById("bg1");
+    var bgStyle = window.getComputedStyle(bgElement);
+    var bgMatrix = new WebKitCSSMatrix(bgStyle.transform);
+    let bgTranslated = Number(bgMatrix.m41);
+
+    let newBGTranslateX = bgTranslated + (initialTouch - Number(touch.clientX));
+    let BGStyle = "translateX(" + newBGTranslateX + "px)";
+
+    if (
+      newBGTranslateX >= 0 &&
+      newBGTranslateX <= $("#bg1").width() - this.window.innerWidth
+    )
+      bgElement.style.transform = BGStyle;
+
+    // For Image
+    let imgElement = this.document.getElementById("characterImge");
+
+    var style = window.getComputedStyle(imgElement);
+    var matrix = new WebKitCSSMatrix(style.transform);
+    let translated = Number(matrix.m41);
+
+    let newTranslateX = translated - (initialTouch - Number(touch.clientX));
+
+    let imgStyle = "translateX(" + newTranslateX + "px)";
+    console.log(imgStyle);
+    if (
+      newTranslateX >= -$("#characterImge").width() + this.window.innerWidth &&
+      newTranslateX <= 0
+    )
+      imgElement.style.transform = imgStyle;
+  });
+
+  if (typeof DeviceOrientationEvent.requestPermission === "function") {
+    // iOS 13+
+    console.log("Found DeviceOrientationEvent");
+    DeviceOrientationEvent.requestPermission()
+      .then((response) => {
+        if (response == "granted") {
+          window.addEventListener("deviceorientation", (e) => {
+            // do something with e
+            parallexEffect();
+          });
+        }
+      })
+      .catch(console.error);
+  } else {
+    console.log("Could not found DeviceOrientationEvent");
+    // non iOS 13+
+    parallexEffect();
+  }
 
   if ($(".wow").length) {
     var wow = new WOW({ mobile: true });
