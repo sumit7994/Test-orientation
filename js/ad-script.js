@@ -330,12 +330,30 @@ function loadAd() {
     "deviceorientation",
     function (event) {
       console.log(event.gamma, "event.gamma");
-      let inner = this.document.getElementById("characterImge");
-      let perDegreeMove = $("#characterImge").width() / limit;
       let position = Math.round(event.gamma);
       console.log(position);
-      let style = "translateX(" + position * perDegreeMove + "px)";
-      inner.style.transform = style;
+
+      // For BG Image
+      let BGperDegreeMove = $("#bg1").width() / limit;
+      let BGtotalMove = -position * BGperDegreeMove;
+      let BGelement = this.document.getElementById("bg1");
+      let BGstyle = "translateX(" + BGtotalMove + "px)";
+      if (
+        BGtotalMove >= -$("#bg1").width() + this.window.innerWidth &&
+        BGtotalMove <= $("#bg1").width() - this.window.innerWidth
+      )
+        BGelement.style.transform = BGstyle;
+
+      // For Upper Image
+      let imgPerDegreeMove = $("#characterImge").width() / limit;
+      let imgTotalMove = position * imgPerDegreeMove;
+      let imgStyle = "translateX(" + imgTotalMove + "px)";
+      let imgElement = this.document.getElementById("characterImge");
+      if (
+        imgTotalMove >= -$("#characterImge").width() + this.window.innerWidth &&
+        imgTotalMove <= $("#characterImge").width() - this.window.innerWidth
+      )
+        imgElement.style.transform = imgStyle;
     },
     true
   );
