@@ -481,19 +481,81 @@ function loadAd() {
   function runParallexEffect() {
     if (typeof DeviceMotionEvent.requestPermission == "function") {
       // iOS 13+
-      console.log("Found DeviceMotionEvent");
-      DeviceMotionEvent.requestPermission()
-        .then((response) => {
-          alert("Inside Request Permission", response);
-          if (response == "granted") {
-            // do something with e
-            parallexEffect();
-          }
-        })
-        .catch((error) => {
-          alert("Cannot send request");
-          console.log(error);
-        });
+      let popupElement = document.createElement("div");
+      popupElement.id = "permission-popup";
+      document.getElementById("wrapper").appendChild(popupElement);
+
+      $("#permission-popup").css({
+        width: "300px",
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        zIndex: 100,
+        backgroundColor: "white",
+        borderRadius: "10px",
+        padding: "10px",
+      });
+
+      let confirmTextElement = document.createElement("h4");
+      confirmTextElement.innerText =
+        "Grant Motion and Orientation Permissions.";
+      popupElement.appendChild(confirmTextElement);
+
+      let buttonContainer = document.createElement("div");
+      buttonContainer.id = "btn-container";
+
+      let allowButtonElement = document.createElement("button");
+      allowButtonElement.id = "allow-btn";
+      allowButtonElement.innerText = "Allow";
+
+      let denyButtonElement = document.createElement("button");
+      denyButtonElement.id = "deny-btn";
+      denyButtonElement.innerText = "Deny";
+
+      buttonContainer.appendChild(allowButtonElement);
+      buttonContainer.appendChild(denyButtonElement);
+
+      popupElement.appendChild(buttonContainer);
+
+      $("#btn-container").css({
+        display: "flex",
+        gap: "10px",
+        justifyContent: "end",
+        padding: "0 10px",
+      });
+
+      $("#allow-btn").css({
+        backgroundColor: "green",
+        color: "white",
+        padding: "5px 10px",
+        borderRadius: "10px",
+      });
+
+      $("#deny-btn").css({
+        backgroundColor: "red",
+        color: "white",
+        padding: "5px 10px",
+        borderRadius: "10px",
+      });
+
+      allowButtonElement.addEventListener("click", () => {
+        DeviceMotionEvent.requestPermission()
+          .then((response) => {
+            if (response == "granted") {
+              // do something with e
+              parallexEffect();
+            }
+          })
+          .catch((error) => {
+            alert("Cannot send request");
+            console.log(error);
+          });
+      });
+
+      denyButtonElement.addEventListener("click", () => {
+        $("#permission-popup").remove();
+      });
     } else {
       console.log("Could not found DeviceOrientationEvent");
       // non iOS 13+
