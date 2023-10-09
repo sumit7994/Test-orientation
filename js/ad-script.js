@@ -478,11 +478,12 @@ function loadAd() {
       imgElement.style.transform = imgStyle;
   });
 
-  if (typeof DeviceOrientationEvent.requestPermission === "function") {
+  if (typeof DeviceMotionEvent.requestPermission === "function") {
     // iOS 13+
-    console.log("Found DeviceOrientationEvent");
-    DeviceOrientationEvent.requestPermission()
+    console.log("Found DeviceMotionEvent");
+    DeviceMotionEvent.requestPermission()
       .then((response) => {
+        alert("Inside Request Permission");
         if (response == "granted") {
           window.addEventListener("deviceorientation", (e) => {
             // do something with e
