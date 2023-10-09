@@ -478,17 +478,15 @@ function loadAd() {
       imgElement.style.transform = imgStyle;
   });
 
-  if (typeof DeviceMotionEvent.requestPermission === "function") {
+  if (typeof DeviceMotionEvent.requestPermission == "function") {
     // iOS 13+
     console.log("Found DeviceMotionEvent");
     DeviceMotionEvent.requestPermission()
       .then((response) => {
-        alert("Inside Request Permission");
+        alert("Inside Request Permission", response);
         if (response == "granted") {
-          window.addEventListener("deviceorientation", (e) => {
-            // do something with e
-            parallexEffect();
-          });
+          // do something with e
+          parallexEffect();
         }
       })
       .catch(console.error);
