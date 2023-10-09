@@ -478,23 +478,28 @@ function loadAd() {
       imgElement.style.transform = imgStyle;
   });
 
-  if (typeof DeviceMotionEvent.requestPermission == "function") {
-    // iOS 13+
-    console.log("Found DeviceMotionEvent");
-    DeviceMotionEvent.requestPermission()
-      .then((response) => {
-        alert("Inside Request Permission", response);
-        if (response == "granted") {
-          // do something with e
-          parallexEffect();
-        }
-      })
-      .catch(console.error);
-  } else {
-    console.log("Could not found DeviceOrientationEvent");
-    // non iOS 13+
-    parallexEffect();
-  }
+  window.addEventListener("DOMContentLoaded", () => {
+    if (typeof DeviceMotionEvent.requestPermission == "function") {
+      // iOS 13+
+      console.log("Found DeviceMotionEvent");
+      DeviceMotionEvent.requestPermission()
+        .then((response) => {
+          alert("Inside Request Permission", response);
+          if (response == "granted") {
+            // do something with e
+            parallexEffect();
+          }
+        })
+        .catch((error) => {
+          alert("Cannot send request");
+          console.log(error);
+        });
+    } else {
+      console.log("Could not found DeviceOrientationEvent");
+      // non iOS 13+
+      parallexEffect();
+    }
+  });
 
   if ($(".wow").length) {
     var wow = new WOW({ mobile: true });
