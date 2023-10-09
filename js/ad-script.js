@@ -428,7 +428,7 @@ function loadAd() {
       let newTranslateX = translated - (initialTouch - Number(touch));
 
       let imgStyle = "translateX(" + newTranslateX + "px)";
-      console.log(imgStyle);
+      // console.log(imgStyle);
       if (
         newTranslateX >=
           -$("#characterImge").width() + this.window.innerWidth &&
@@ -478,7 +478,7 @@ function loadAd() {
       imgElement.style.transform = imgStyle;
   });
 
-  window.addEventListener("DOMContentLoaded", () => {
+  function runParallexEffect() {
     if (typeof DeviceMotionEvent.requestPermission == "function") {
       // iOS 13+
       console.log("Found DeviceMotionEvent");
@@ -499,7 +499,7 @@ function loadAd() {
       // non iOS 13+
       parallexEffect();
     }
-  });
+  }
 
   if ($(".wow").length) {
     var wow = new WOW({ mobile: true });
@@ -891,6 +891,16 @@ function loadAd() {
   setTimeout(() => {
     hotspotstatus = true;
     hotspotEnable();
+
+    if (document.readyState !== "loading") {
+      console.log("document is already ready, just execute code here");
+      runParallexEffect();
+    } else {
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("document was not ready, place code here");
+        runParallexEffect();
+      });
+    }
   }, 1);
 }
 
