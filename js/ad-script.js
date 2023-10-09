@@ -544,10 +544,12 @@ function loadAd() {
           .then((response) => {
             if (response == "granted") {
               // do something with e
+              $("#permission-popup").remove();
               parallexEffect();
             }
           })
           .catch((error) => {
+            $("#permission-popup").remove();
             alert("Cannot send request");
             console.log(error);
           });
