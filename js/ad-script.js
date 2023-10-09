@@ -342,7 +342,7 @@ function loadAd() {
   });
 
   function parallexEffect() {
-    let limit = 90;
+    let limit = 120;
     window.addEventListener(
       "deviceorientation",
       function (event) {
