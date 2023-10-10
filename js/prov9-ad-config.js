@@ -493,7 +493,7 @@ var adConfig = {
     {
       id: "swipeToKnow",
       type: "text",
-      text: "TILT YOUR PHONE",
+      text: "USE YOUR FINGER TO SWIPE LEFT OR RIGHT OR TILT YOUR PHONE",
       style: {
         "300x250": {
           color: "#ffffff",
@@ -634,11 +634,11 @@ var adConfig = {
         responsive: {
           color: "#ffffff",
           fontSize: "17px",
-          top: "83%",
-          left: "0px",
+          top: "80%",
+          left: "43px",
           zIndex: 7,
           fontFamily: "'Trebuchet MS', sans-serif",
-          width: "100%",
+          width: "74%",
           textAlign: "center",
         },
       },
@@ -1427,6 +1427,7 @@ var adConfig = {
       expandStyle: { width: "79px", top: "10px", left: "10px", zIndex: 8 },
       status: { responsive: true },
       fileName: "watchnow.png",
+      text: "",
     },
     {
       id: "netFlix",
@@ -1617,7 +1618,7 @@ var adConfig = {
         },
         responsive: {
           width: "19%",
-          top: "70%",
+          top: "68%",
           left: "41%",
           backgroundColor: "rgba(0, 0, 0, 0)",
           color: "rgba(255, 255, 255, 0)",
